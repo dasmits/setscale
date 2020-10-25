@@ -22,8 +22,8 @@ export default class Control extends Component {
                 <form>
                     {["set", "scale", "internal", "external", "literal"].map(m=>
                         <div>
-                            <input type="radio" name="model" value={m} onChange={this.updateModel} checked={this.state.model==m} />
-                            <label>{m}</label>
+                            <input type="radio" name="model" id={m+"_id"} value={m} onChange={this.updateModel} checked={this.state.model==m} />
+                            <label for={m+"_id"}>{m}</label>
                         </div>
                     )}
             
