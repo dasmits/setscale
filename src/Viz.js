@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+var equal = require('deep-equal');
 
 var gridStyle = (n)=>{
     return {
@@ -19,8 +20,8 @@ var cellStyle = (i, props)=>{
     const boundary = props.boundary;
     var row = parseInt(i/num)+1
     var col = (i%num) +1
+    const critical = props.critical && row != col && row<(num/2+1) == col<(num/2+1); 
     
-    console.log(row,col)
     var val;
     if(row == col){
         val = 2;
@@ -63,11 +64,11 @@ var cellStyle = (i, props)=>{
     var val2col = ["#f79797", "#feffbf", "#a2f2ad"]
     
     return {
-        border: "1px solid lightgrey",
+        border: ".5px solid darkgrey",
         margin: 0,
         padding: 0,
         backgroundColor: val2col[val],
-        
+        boxShadow: critical?"inset 0px 0px 10px 1px rgba(75,75,75,.75)": ""
     }
 }
 
@@ -90,10 +91,7 @@ export default class Viz extends Component {
     }
     
     shouldComponentUpdate(nextProps, nextState){
-        // console.log(gridStyle(5));
-        if(parseInt(nextProps.num)!=parseInt(this.props.num)
-            || nextProps.model!=this.props.model
-            || parseInt(nextProps.boundary) != parseInt(this.props.boundary)){
+        if(! equal(nextProps, this.props)){
             this.grid = makeGrid(nextProps);
             return true;
         }

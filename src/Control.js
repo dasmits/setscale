@@ -8,7 +8,7 @@ export default class Control extends Component {
             num: 4,
             boundary: 2,
             model: "set",
-
+            critical : false
         }
     }
 
@@ -40,9 +40,11 @@ export default class Control extends Component {
                             <input type="range" name="boundary" min="0" max={this.state.num} step ="1"
                                 value={this.state.boundary} onChange={(e)=>this.setState({boundary:e.target.value})}/>
                     </label>
+                    <br/>
+                    <button type="button" onClick={(e)=>this.setState({critical:!this.state.critical})}>Toggle Critical : {this.state.critical?"True":"False"}</button>
                 </form>
 
-                <Viz num={this.state.num} model={this.state.model} boundary ={this.state.boundary}/>
+                <Viz critical={this.state.critical} num={this.state.num} model={this.state.model} boundary ={this.state.boundary}/>
 
             </div> 
         )
