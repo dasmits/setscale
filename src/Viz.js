@@ -105,7 +105,7 @@ export default class Viz extends Component {
         this.items= {
             4:["..." , "water", "milk", "soup", "bread"],
             6:["..." , "water", "soda", "milk", "yogurt", "soup", "bread"],
-            8:["..." , "water", "soda", "juice", "milk", "yogurt", "soup", "eggs", "read"],
+            8:["..." , "water", "soda", "juice", "milk", "yogurt", "soup", "eggs", "bread"],
         }
 
         this.grid = this.makeGrid(this.props);
