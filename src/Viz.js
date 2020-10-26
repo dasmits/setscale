@@ -61,14 +61,32 @@ var cellStyle = (row, col, props)=>{
         } 
     }
     
-    var val2col = ["#f79797", "#feffbf", "#a2f2ad"]
+    var val2col = ["#ff3737", "#feffbf", "#a2f2ad"]
+    const negshades = ["#ff3737","#f84e41", "#f36549","#f48757","#ef9c58","#f4bb68", "#f5ca73","#fcec9d"]
+    var color = val2col[val];
+    if(val==0 && props.negation !="uniform"){
+        var neg = 0;
+        if(props.negation == "target"){
+            neg = row-1
+        }
+        else if(props.negation =="chosen"){
+            neg = props.num-col
+        }
+        else{
+            neg = Math.max(row-1, props.num-col)
+        }
+        
+        color = negshades[neg];
+    }
+
     
 
     return {
         border: ".5px solid darkgrey",
         margin: 0,
         padding: 0,
-        backgroundColor: val2col[val],
+        backgroundColor: color,
+        position: "relative", 
         boxShadow: critical?"inset 0px 0px 10px 1px rgba(75,75,75,.75)": ""
     }
 }
@@ -89,26 +107,24 @@ export default class Viz extends Component {
             6:["..." , "water", "soda", "milk", "yogurt", "soup", "bread"],
             8:["..." , "water", "soda", "juice", "milk", "yogurt", "soup", "eggs", "read"],
         }
+
         this.grid = this.makeGrid(this.props);
 
     }
 
     makeGrid = props=>{
         var g = []
-        
+
         for(var i=0; i<props.num*props.num; i++){
             const row = parseInt(i/props.num)+1;
             const col = (i%props.num) +1;
             g.push(<div onClick={()=>this.updatePrev(row,col,props.num)} style={cellStyle(row, col,props)}>
-                {(row!=1)||<div style = {{top:-25,position:"relative", color:"darkgrey", fontSize:15}}>
+                {(row!=1)||<div style = {{top:-25, left: "50%", transform: "translate(-50%, 0)",position:"absolute", color:"darkgrey", fontSize:15}}>
                      {this.items[props.num][col]}
                 </div>}
-                {(col!=1)||<div style = {{left:-85, top: 40, position:"relative", color:"darkgrey", fontSize:15, textAlign:"center"}}>
+                {(col!=1)||<div style = {{left:-20, top: "50%", transform: "translate(-50%, -50%)", position:"absolute", color:"darkgrey", fontSize:15, textAlign:"center"}}>
                      {this.items[props.num][row]}
                 </div>}
-                {/* <span style = {{top:(row==1)?-25:0,position:"relative"}}>
-                     {(col==1?"R"+row+" ("+this.items[props.num][row]+")":row==1?"R"+col+" ("+this.items[props.num][col]+")":"")}
-                </span> */}
             </div>);
         }
         return g
