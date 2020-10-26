@@ -64,7 +64,7 @@ var cellStyle = (row, col, props)=>{
     var val2col = ["#ff3737", "#feffbf", "#a2f2ad"]
     const negshades = ["#ff3737","#f84e41", "#f36549","#f48757","#ef9c58","#f4bb68", "#f5ca73","#fcec9d"]
     var color = val2col[val];
-    if(val==0 && props.negation !="uniform" && props.model !="set"){
+    if(val==0 && props.negation !="uniform" && props.model !="set" && props.model !="literal"){
         var neg = 0;
         if(props.negation == "target"){
             neg = row-1
