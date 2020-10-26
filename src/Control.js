@@ -38,7 +38,7 @@ export default class Control extends Component {
                     Negation: 
                     {["uniform", "target", "chosen", "both"].map(n=>
                         <>
-                        <input type="radio" name="negation" id={n+"_id"} value={n} onChange={this.updateNegation} checked={this.state.negation==n} />
+                        <input type="radio" name="negation" id={n+"_id"} value={n} onChange={this.updateNegation} checked={this.state.negation==n} disabled={this.state.model =="set" || this.state.model =="literal"} />
                         <label for={n+"_id"}>{n}</label>
                         </>
                     )}
@@ -55,11 +55,11 @@ export default class Control extends Component {
                     
                 
                     <label>
-                        Set: {this.state.boundary}
-                            <input type="range" name="boundary" min="0" max={this.state.num} step ="1"
+                        Set Boundary: {this.state.boundary}
+                            <input type="range" name="boundary" min="0" max={this.state.num} step ="1" disabled={this.state.model == "scale" || this.state.model == "literal"}
                                 value={this.state.boundary} onChange={(e)=>this.setState({boundary:e.target.value})}/>
                     </label>
-                    <button type="button" onClick={(e)=>this.setState({critical:!this.state.critical})}>Toggle Critical : {this.state.critical?"True":"False"}</button>
+                    <button type="button" onClick={(e)=>this.setState({critical:!this.state.critical})}>Show Critical : {this.state.critical?"True":"False"}</button>
                 </form>
 
                 <Viz critical={this.state.critical} num={this.state.num} model={this.state.model} boundary ={this.state.boundary} negation={this.state.negation}/>
