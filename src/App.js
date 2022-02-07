@@ -4,7 +4,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1> Sets and Scales</h1>
+      <h1> Data Structures of Alternatives</h1>
       <Control/>
     </div>
   );

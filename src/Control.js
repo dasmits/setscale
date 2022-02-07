@@ -26,9 +26,9 @@ export default class Control extends Component {
             <div>
                 <form>
                     Model: 
-                    {["set", "scale", "internal", "external", "literal"].map(m=>
+                    {["set", "ordering", "conjunction", "disjunction",].map(m=> // "literal"
                         <>
-                        <input type="radio" name="model" id={m+"_id"} value={m} onChange={this.updateModel} checked={this.state.model==m} />
+                        <input type="radio" name="model" id={m+"_id"} value={m} onChange={this.updateModel} checked={this.state.model===m} />
                         <label for={m+"_id"}>{m}</label>
                         </>
                     )}
@@ -36,9 +36,9 @@ export default class Control extends Component {
                     <br/>
 
                     Negation: 
-                    {["uniform", "target", "chosen", "both"].map(n=>
+                    {["uniform", "query", "trigger", "both"].map(n=>
                         <>
-                        <input type="radio" name="negation" id={n+"_id"} value={n} onChange={this.updateNegation} checked={this.state.negation==n} disabled={this.state.model =="set" || this.state.model =="literal"} />
+                        <input type="radio" name="negation" id={n+"_id"} value={n} onChange={this.updateNegation} checked={this.state.negation===n} disabled={this.state.model ==="set" || this.state.model ==="literal"} />
                         <label for={n+"_id"}>{n}</label>
                         </>
                     )}
@@ -56,12 +56,11 @@ export default class Control extends Component {
                 
                     <label>
                         Set Boundary: {this.state.boundary}
-                            <input type="range" name="boundary" min="0" max={this.state.num} step ="1" disabled={this.state.model == "scale" || this.state.model == "literal"}
+                            <input type="range" name="boundary" min="0" max={this.state.num} step ="1" disabled={this.state.model === "ordering" || this.state.model === "literal"}
                                 value={this.state.boundary} onChange={(e)=>this.setState({boundary:e.target.value})}/>
                     </label>
-                    <button type="button" onClick={(e)=>this.setState({critical:!this.state.critical})}>Show Critical : {this.state.critical?"True":"False"}</button>
+                    <button type="button" onClick={(e)=>this.setState({critical:!this.state.critical})}>Highlight Critical : {this.state.critical?"True":"False"}</button>
                 </form>
-
                 <Viz critical={this.state.critical} num={this.state.num} model={this.state.model} boundary ={this.state.boundary} negation={this.state.negation}/>
 
             </div> 
